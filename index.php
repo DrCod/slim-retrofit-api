@@ -1,8 +1,12 @@
 <?php
 require 'vendor/autoload.php';
 include_once 'database.php';
+use \Slim\App;
 
-$app = new SlimSlim();
+$app = new App(['settings'=>[
+    'displayErrorDetails' => false,
+    'addContentLengthHeader' => false
+]]);
 
 $app->get('/:email/:password', function($email, $password){
     
@@ -16,10 +20,10 @@ $app->get('/:email/:password', function($email, $password){
     if($isRegistered){
         $app->response->setStatus('200');	
         $app->response->headers->set('Content_Type', 'application/json');	
-        echo json_encode(Array('isLogin' => '1'));
+        echo json_encode(Array( 'status'=>"1",'login'=>"sucess",));
         
     }else{
-        echo json_encode(Array('isLogin' => '0'));
+        echo json_encode(Array( 'status'=>"0", 'login'=>"fail",));
     }
     
 });
@@ -35,9 +39,9 @@ $app->post('/:email/:password', function($email, $password){
     if($isInserted){
         $app->response->setStatus('200');	
         $app->response->headers->set('Content_Type', 'application/json');	
-        echo json_encode(Array('isLogin' => '1'));
+        echo json_encode(Array( 'status'=>"1", 'login'=>"sucess",));
     }else{
-        echo json_encode(Array('isLogin' => '0'));
+        echo json_encode(Array( 'status'=>"0",'login'=>"fail",));
     }
  
 });

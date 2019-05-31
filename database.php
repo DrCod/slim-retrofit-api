@@ -1,7 +1,5 @@
 <?php
-
 include_once 'DB.php';
-
  class DatabaseLayer{ 			
     
     public function __constructor(){
